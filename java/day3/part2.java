@@ -1,5 +1,3 @@
-package day3;
-
 import java.io.*;
 import java.util.*;
 
@@ -10,56 +8,70 @@ public class part2 {
         try {
             String lineBits = "";
             ArrayList<String> oxygenArray = new ArrayList<String>(), co2Array = new ArrayList<String>();
-            int[] totalZeroBits = new int[12], totalOneBits = new int[12];
+            int totalZeroBits = 0, totalOneBits = 0;
             Scanner reader = new Scanner(new File("input.txt"));
             char maxBit = ' ', minBit = ' ';
-            int pos = 0;
             int oxygen = 0, co2 = 0, lifeSupport = 0;
 
             while (reader.hasNextLine()) {
                 lineBits = reader.nextLine();
 
-                for (int i = 0; i < lineBits.length(); i++) {
-                    if (lineBits.charAt(i) == '1')
-                        totalOneBits[i]++;
-
-                    else
-                        totalZeroBits[i]++;
-                }
-
                 oxygenArray.add(lineBits);
                 co2Array.add(lineBits);
             }
 
+            int pos = 0;
             while (oxygenArray.size() > 1) {
-                if (totalOneBits[pos] >= totalZeroBits[pos])
+
+                for (int i = 0; i < oxygenArray.size(); i++) {
+                    if (oxygenArray.get(i).charAt(pos) == '1')
+                        totalOneBits++;
+                    else
+                        totalZeroBits++;
+                }
+
+                if (totalOneBits >= totalZeroBits)
                     maxBit = '1';
                 else
                     maxBit = '0';
+
                 for (int j = oxygenArray.size() - 1; j >= 0; j--) {
                     if (oxygenArray.get(j).charAt(pos) != maxBit)
                         oxygenArray.remove(j);
                 }
                 pos++;
+                totalOneBits = 0;
+                totalZeroBits = 0;
             }
 
             pos = 0;
+            totalOneBits = 0;
+            totalZeroBits = 0;
+
             while (co2Array.size() > 1) {
-                if (totalZeroBits[pos] <= totalOneBits[pos])
+
+                for (int i = 0; i < co2Array.size(); i++) {
+                    if (co2Array.get(i).charAt(pos) == '1')
+                        totalOneBits++;
+                    else
+                        totalZeroBits++;
+                }
+
+                if (totalZeroBits <= totalOneBits)
                     minBit = '0';
                 else
                     minBit = '1';
+
                 for (int j = co2Array.size() - 1; j >= 0; j--) {
                     if (co2Array.get(j).charAt(pos) != minBit)
                         co2Array.remove(j);
                 }
                 pos++;
+                totalOneBits = 0;
+                totalZeroBits = 0;
             }
 
             reader.close();
-
-            System.out.println(oxygenArray);
-            System.out.println(co2Array);
 
             oxygen = convertBitsToDecimal(oxygenArray.get(0));
             co2 = convertBitsToDecimal(co2Array.get(0));
