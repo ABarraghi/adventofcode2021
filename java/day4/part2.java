@@ -12,7 +12,6 @@ public class part2 {
             HashMap<int[][], Integer> boardWinDraws = new HashMap<int[][], Integer>();
             ArrayList<int[][]> bingoBoard = new ArrayList<int[][]>();
             int[][] currBoard = new int[5][5];
-            boolean win = false;
             int currDraw = 0;
             int colSum = 0, rowSum = 0, totalSum = 0;
             int winningDraw = 0;
@@ -70,56 +69,21 @@ public class part2 {
                             colSum += currBoard[row][sumIndex];
                         }
                         if (rowSum == -5 || colSum == -5) {
-                            win = true;
+                            winningStack.push(currBoard);
+                            boardWinDraws.put(currBoard, currDraw);
+                            bingoBoard.remove(boardIndex);
+                            rowSum = 0;
+                            colSum = 0;
+                            boardIndex--;
                             break;
                         }
 
                         rowSum = 0;
                         colSum = 0;
                     }
-
-                    // Push winning board to stack
-                    if (win) {
-                        System.out.print(currBoard[0][0] + " " + currBoard[0][1] + " " +
-                                currBoard[0][2] + " " + currBoard[0][3]
-                                + " " + currBoard[0][4] + "\n");
-                        System.out.print(currBoard[1][0] + " " + currBoard[1][1] + " " +
-                                currBoard[1][2] + " " + currBoard[1][3]
-                                + " " + currBoard[1][4] + "\n");
-                        System.out.print(currBoard[2][0] + " " + currBoard[2][1] + " " +
-                                currBoard[2][2] + " " + currBoard[2][3]
-                                + " " + currBoard[2][4] + "\n");
-                        System.out.print(currBoard[3][0] + " " + currBoard[3][1] + " " +
-                                currBoard[3][2] + " " + currBoard[3][3]
-                                + " " + currBoard[3][4] + "\n");
-                        System.out.print(currBoard[4][0] + " " + currBoard[4][1] + " " +
-                                currBoard[4][2] + " " + currBoard[4][3]
-                                + " " + currBoard[4][4] + "\n");
-                        System.out.println(currDraw);
-                        winningStack.push(currBoard);
-                        boardWinDraws.put(currBoard, currDraw);
-                        bingoBoard.remove(boardIndex);
-                        win = false;
-                    }
                 }
 
             }
-            // currBoard = winningStack.peek();
-            // System.out.print(currBoard[0][0] + " " + currBoard[0][1] + " " +
-            // currBoard[0][2] + " " + currBoard[0][3]
-            // + " " + currBoard[0][4]);
-            // System.out.print(currBoard[1][0] + " " + currBoard[1][1] + " " +
-            // currBoard[1][2] + " " + currBoard[1][3]
-            // + " " + currBoard[1][4]);
-            // System.out.print(currBoard[2][0] + " " + currBoard[2][1] + " " +
-            // currBoard[2][2] + " " + currBoard[2][3]
-            // + " " + currBoard[2][4]);
-            // System.out.print(currBoard[3][0] + " " + currBoard[3][1] + " " +
-            // currBoard[3][2] + " " + currBoard[3][3]
-            // + " " + currBoard[3][4]);
-            // System.out.print(currBoard[4][0] + " " + currBoard[4][1] + " " +
-            // currBoard[4][2] + " " + currBoard[4][3]
-            // + " " + currBoard[4][4]);
 
             // Last winning board is at top of stack
             currBoard = winningStack.pop();

@@ -86,22 +86,6 @@ public class part1 {
 
             currBoard = bingoBoard.get(winningIndex);
 
-            System.out.print(currBoard[0][0] + " " + currBoard[0][1] + " " +
-                    currBoard[0][2] + " " + currBoard[0][3]
-                    + " " + currBoard[0][4]);
-            System.out.print(currBoard[1][0] + " " + currBoard[1][1] + " " +
-                    currBoard[1][2] + " " + currBoard[1][3]
-                    + " " + currBoard[1][4]);
-            System.out.print(currBoard[2][0] + " " + currBoard[2][1] + " " +
-                    currBoard[2][2] + " " + currBoard[2][3]
-                    + " " + currBoard[2][4]);
-            System.out.print(currBoard[3][0] + " " + currBoard[3][1] + " " +
-                    currBoard[3][2] + " " + currBoard[3][3]
-                    + " " + currBoard[3][4]);
-            System.out.print(currBoard[4][0] + " " + currBoard[4][1] + " " +
-                    currBoard[4][2] + " " + currBoard[4][3]
-                    + " " + currBoard[4][4]);
-            System.out.println(currDraw);
             // Sum all unmarked entries in currBoard, multiply it by the current draw
             for (int row = 0; row < 5; row++) {
                 for (int col = 0; col < 5; col++) {
